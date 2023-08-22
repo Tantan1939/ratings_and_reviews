@@ -1,0 +1,35 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <div class="navbar-nav">
+                <span class="noti fas fa-bell">
+                    <span class="count"> </span>
+                </span>
+
+                <div class="noti-content">
+                    <div class="noti-top-arrow"></div>
+                    <div id="notiContent">
+                        @* Insert notification list using ajax *@
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("TransactionHistory", "History", "Transaction")</li>
+                <li>@Html.ActionLink("AddTransaction(not included)", "Index", "AddTransaction")</li>
+            </ul>
+
+            <ul class="nav">
+                @Html.Partial("_LoginPartial")
+            </ul>
+        </div>
+    </div>
+</div>

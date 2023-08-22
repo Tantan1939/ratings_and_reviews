@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TransactionNamespace.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TransactionDB">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastUpdateTime" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastUpdateDate" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoomImage" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="RoomType" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ArrivalDate" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ArrivalTime" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DepartureDate" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DepartureTime" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NumberOfNight" Type="int" Nullable="false" />
+    <Property Name="NumberOfOccupants" Type="int" Nullable="false" />
+    <Property Name="RoomMasterID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoomPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsRated" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="TransactionNamespaceStoreContainer">
+    <EntitySet Name="TransactionDB" EntityType="Self.TransactionDB" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CustomerDataRatingsAndReviewsManagementSystem.ViewModel.ShoppingViewModel>
+@{
+    ViewBag.Title = "ShoppingView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShoppingView</h2>
+
+<div class="container">
+    <h2 class="text-center">Product List</h2>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4" style="border: 2px solid black">
+            <div style="text-align: center; border-bottom: 2px solid maroon">
+                <h3>@item.ItemName</h3>
+            </div>
+            <div>
+                <div class="col-md-8">
+                    @if (item.ImagePath != null)
+                    {
+                        <img src="~/Gif/105-1055656_account-user-profile-avatar-avatar-user-profile-icon.png" width="150px" height="150px" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content(@item.ImagePath)" width="150px" height="150px" />
+                    }
+
+                </div>
+                <div class="col-md-4" style="text-align: left">
+                    <b>@item.Description</b>
+                </div>
+            </div>
+
+            <div class="col-md-8" style="font-size: 18px; border-top: 2px solid maroon; padding: 2px">
+                <b>@item.ItemPrice.ToString("#,##0.00 INR")</b>
+            </div>
+            <div class="col-md-4" style="text-align: right; margin-bottom: 10px; border-top: 2px solid maroon; padding: 2px">
+                <input type="button" name="AddToCart" value="Add to Cart" class="btn btn-primary" itemid="@item.ItemId" id="btnAddToCart" onclick="AddToCart(this)" />
+            </div>
+
+        </div>
+    }
+</div>

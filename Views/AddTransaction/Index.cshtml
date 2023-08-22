@@ -1,0 +1,147 @@
+﻿@model CustomerDataRatingsAndReviewsManagementSystem.ViewModel.CreateTransactionModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="form-horizontal">
+    <h4>CreateTransactionModel</h4>
+    <hr />
+    @Html.HiddenFor(model => model.UserID)
+    @Html.HiddenFor(model => model.Username)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomImage, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.RoomImage, new { type = "file", @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RoomType, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NumberOfNight, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NumberOfNight, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NumberOfOccupants, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NumberOfOccupants, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomMasterID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RoomMasterID, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoomPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RoomPrice, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsRated, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IsRated, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-primary" name="submitButton" id="btnSave" value="Save" type="button">
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnSave").click(function () {
+                    if (SaveItem()) {
+                        resets();
+                    }
+                });
+            });
+
+            function resets() {
+                $("#UserID").val("");
+                $("#Username").val("");
+                $("#RoomImage").val("");
+                $("#RoomType").val("");
+                $("#NumberOfNight").val("");
+                $("#NumberOfOccupants").val("");
+                $("#RoomMasterID").val("");
+                $("#RoomPrice").val("");
+                $("#Status").val("");
+                $("#IsRated").val("");
+            }
+
+            function SaveItem() {
+                var formData = new FormData();
+                formData.append("UserID", $("#UserID").val());
+                formData.append("Username", $("#Username").val());
+                formData.append("RoomImage", $("#RoomImage").get(0).files[0]);
+                formData.append("RoomType", $("#RoomType").val());
+                formData.append("NumberOfNight", $("#NumberOfNight").val());
+                formData.append("NumberOfOccupants", $("#NumberOfOccupants").val());
+                formData.append("RoomMasterID", $("#RoomMasterID").val());
+                formData.append("RoomPrice", $("#RoomPrice").val());
+                formData.append("Status", $("#Status").val());
+                formData.append("IsRated", $("#IsRated").val());
+
+                $.ajax({
+                    async: true,
+                    dataType: 'JSON',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    url: '/AddTransaction/InsertTransactionData',
+                    data: formData,
+                    success: function (data) {
+                        if (data.Success) {
+                            alert(data.Message);
+                            if (confirm) {
+                                resets();
+                                var url = '@Url.Action("History", "Transaction")';
+                                window.location.href = url;
+                            }
+                        }
+                        else {
+                            alert(data.Message);
+                        }
+                    },
+                    error: function () {
+                        alert("There is some problem to add Item.");
+                    }
+                });
+            }
+</script>
+}

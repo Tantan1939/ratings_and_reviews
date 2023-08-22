@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RoomModelNamespace.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="roomDB">
+    <Key>
+      <PropertyRef Name="RoomID" />
+    </Key>
+    <Property Name="RoomID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoomImage" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="RoomType" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="RoomPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="RoomModelNamespaceStoreContainer">
+    <EntitySet Name="roomDB" EntityType="Self.roomDB" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

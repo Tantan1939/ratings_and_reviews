@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RateNamespaceStoreContainer" CdmEntityContainer="RateEntities">
+    <EntitySetMapping Name="FeedbackDBs">
+      <EntityTypeMapping TypeName="RateNamespace.FeedbackDB">
+        <MappingFragment StoreEntitySet="FeedbackDB">
+          <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="RateNumber" ColumnName="RateNumber" />
+          <ScalarProperty Name="Feedbacks" ColumnName="Feedbacks" />
+          <ScalarProperty Name="DateInserted" ColumnName="DateInserted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

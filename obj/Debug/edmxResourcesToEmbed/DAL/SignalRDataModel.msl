@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="notificationNamespaceStoreContainer" CdmEntityContainer="SignalRDBentities">
+    <EntitySetMapping Name="notificationTables">
+      <EntityTypeMapping TypeName="notificationNamespace.notificationTable">
+        <MappingFragment StoreEntitySet="notificationTable">
+          <ScalarProperty Name="ImgSource" ColumnName="ImgSource" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+          <ScalarProperty Name="notificationID" ColumnName="notificationID" />
+          <ScalarProperty Name="notificationFrom" ColumnName="notificationFrom" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Userid" ColumnName="Userid" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

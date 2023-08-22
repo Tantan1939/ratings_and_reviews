@@ -1,0 +1,228 @@
+﻿@model CustomerDataRatingsAndReviewsManagementSystem.ViewModel.CreateRoomModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutAddRoom.cshtml";
+}
+<html>
+<head>
+
+</head>
+
+<body>
+
+    @* Insert new room *@
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Please enter the details below.</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group col-md-5">
+                    <label>Room type</label>
+                    @Html.TextBoxFor(model => model.roomType, new { @class = "form-control", autocomplete = "Off" })
+                    @*<input type="text" name="Roomtype" id="Roomtype" class="form-control" placeholder="Enter Room type" required="" />*@
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Room price</label>
+                    @Html.TextBoxFor(model => model.roomPrice, new { @class = "form-control", autocomplete = "Off" })
+                    @*<input type="text" name="Roomprice" id="Roomprice" class="form-control" placeholder="Enter Price" required="" />*@
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Room Image</label>
+                    @Html.TextBoxFor(model => model.roomImage, new { type = "file", @class = "form-control" })
+                    @*<input type="file" name="roomImage" id="roomImage" class="form-control"/>*@
+                </div>
+
+                <div class="form-group col-md-1">
+                    <div style="float: right; display:inline-block;">
+                        <input class="btn btn-primary" name="submitButton" id="btnSave" value="Save" type="button">
+                    </div>
+                </div>
+            </div>
+        </div><hr />
+    </div>
+
+    <br />
+    <hr />
+
+    @* Display new room - 1 entry only *@
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">List of shit</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group col-md-5">
+                    <label>Room type</label>
+                    <input type="text" name="rmtype" id="rmtype" class="form-control" placeholder="Enter Room type" required="" />
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Room price</label>
+                    <input type="text" name="rmprice" id="rmprice" class="form-control" placeholder="Enter Price" required="" />
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Room Image</label>
+                    <img src="" width="100%" height="100%" id="imgDisplay" />
+                    <input type="file" name="roomImage" id="roomImage" class="form-control" />
+                </div>
+            </div>
+        </div><hr />
+    </div>
+
+    @* Display list of data *@
+    <table id="tblRooms" class="table table-bordered table-striped table-responsive table-hover">
+        <thead>
+            <tr>
+                <th align="left" class="productth">Room type</th>
+                <th align="left" class="productth">Room price</th>
+                <th align="left" class="productth">Room image</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <input class="btn btn-primary" name="displayButton" id="displayList" value="Show" type="button" />
+
+    <input class="btn btn-danger" name="clear" id="clearList" value="Clear" type="button" />
+
+    @* Display new list *@
+    <input class="btn btn-primary" name="GetList" id="GetList" value="Display" type="button" />
+    <div class="col-md-6" id="pnlList">
+    </div>
+
+    @section Scripts{
+        <script type="text/javascript">
+
+            //function to display room id
+            var ConfirmDelete = function (EmployeeID) {
+                alert(EmployeeID);
+            }
+
+            $(window).on('load', function () {
+                tangina();
+            });
+
+            $(document).ready(function () {
+
+                //click event for inserting a new room
+                $("#btnSave").click(function () {
+                    SaveItem();
+                });
+
+                //click event to display all list in new style
+                $("#GetList").click(function () {
+                    tangina();
+                });
+
+                //click event to display all list of rooms
+                $("#displayList").click(function () {
+                    getAll();
+                });
+
+                //click event to clear list of rooms
+                $("#clearList").click(function () {
+                    var rows = "";
+                    $('#pnlList').val(rows);
+                });
+            });
+
+            //function to reset input fields
+            function resets() {
+                $("#roomType").val("");
+                $("#roomPrice").val("");
+                $("#roomImage").val("");
+            }
+
+            //function to save new room
+            function SaveItem() {
+                var formData = new FormData();
+                formData.append("roomType", $("#roomType").val());
+                formData.append("roomPrice", $("#roomPrice").val());
+                formData.append("roomImage", $("#roomImage").get(0).files[0]);
+                $.ajax({
+                    async: true,
+                    dataType: 'JSON',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    url: '/AddRoom/newRoom',
+                    data: formData,
+                    success: function (data) {
+                        if (data.Success) {
+                            alert(data.Message);
+                            //updateDisplay();
+                            resets();
+                        }
+                        else {
+                            alert(data.Message);
+                        }
+                    },
+                    error: function () {
+                        alert("There is some problem to add Item.");
+                    }
+                });
+            }
+
+            //function to display one entry only
+            function updateDisplay() {
+                $.ajax({
+                    url: "/AddRoom/NewList",
+                    method: 'GET',
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        $.each(data, function (i, item) {
+                            $("#rmtype").val(item.RoomType);
+                            $("#rmprice").val(item.RoomPrice);
+                            $("#imgDisplay").attr("src", item.RoomImage).addClass("show");
+                        });
+                    }
+                });
+            }
+
+            //function to fetch list of rooms - get method
+            function getAll() {
+                $.ajax({
+                    url: "/AddRoom/NewList",
+                    method: 'GET',
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        var items = '';
+                        $.each(data, function (i, item) {
+                            var rows = "<tr>"
+                                + "<td class='prtoducttd'>" + item.RoomType + "</td>"
+                                + "<td class='prtoducttd'>" + item.RoomPrice + "</td>"
+                                + "<td class='prtoducttd'>" + "<img src= '" + item.RoomImage + "' width='20%' />" + "</td>"
+                                + "<td class='prtoducttd'>" + "<input class='btn btn-primary' onclick='ConfirmDelete(" + item.RoomPrice + ")' name='showId' value='Display' type='button'/>" + "</td>"
+                                + "</tr>";
+                            $('#tblRooms tbody').append(rows);
+                        });
+                    }
+                });
+            }
+
+            function tangina() {
+                $.ajax({
+                    url: "/AddRoom/NewList",
+                    method: 'GET',
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        var items = '';
+                        $.each(data, function (i, item) {
+                            var rows = "<div class='panel panel-primary'>"
+                                + "<div class='panel-heading'>" + "<h3 class='panel-title'>" + item.RoomType + "</h3>" + "</div>"
+                                + "<div class='panel-body'>"
+                                + "<div class='form-group col-md-5'>" + "<img src= '" + item.RoomImage + "' width='60%' />" + "</div>"
+                                + "<div class='form-group col-md-5'>" + "<label>" + item.RoomPrice + "</label>" + "</div>"
+                                + "<div class='form-group col-md-5'>" + "<input class='btn btn-primary' onclick='ConfirmDelete(" + item.RoomPrice + ")' name='showId' value='Display' type='button'/>" + "</div>"
+                                + "</div>";
+                            $('#pnlList').append(rows);
+                        });
+                    }
+                });
+            }
+        </script>
+    }
+
+</body>
+
+
+</html>
